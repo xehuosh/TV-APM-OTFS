@@ -1,11 +1,8 @@
-%function UnderProSim
+% 主程序UnderProSim
 %
-% Uses Bellhop
-% 11/09/2009 17:00
-% 25/01/2010 17:30 : Update to generate sea rough surface
-% 19/05/2010 12:30 : Update to use JONSWAP sea surface spectrum 
+% 基于Bellhop水声工具箱开发的上层框架，用于水下移动节点仿真
 % 
-% Underwater Propagation Simulator
+% 时变水声传播模型
 %
 
 system('rm -f computation_advance.txt Results.mat');
@@ -33,8 +30,8 @@ fclose( fid );
 load sound_speed.dat 
 z = sound_speed(:,1); 
 c = sound_speed(:,2); 
-[z indexes] = sort( z );
-c = c( indexes ); 
+[z,indexes] = sort(z);
+c = c(indexes); 
 if z(1) > 0 
     z = [0   ; z(:)];
     c = [c(1); c(:)];
@@ -73,11 +70,11 @@ case_title = 'scenarioID';
 %======================================================================
 parameters;
 
-g         = 9.80665; % acceleration of gravity 
-UxU       =     U*U; % square of wind speed
+g         = 9.80665;      % 重力加速度(m/s^2)
+UxU       =     U*U;      % square of wind speed
 theta     = theta*pi/180; % convert degrees to radians 
-X         =   fetch; % wave parameter, do not change
-cg        =       0; % group velocity, modified later if U ~= 0 
+X         =   fetch;      % wave parameter, do not change
+cg        =       0;      % group velocity, modified later if U ~= 0 
 
 wind.U = U; wind.X = X; wind.thetaU = theta; % auxiliary structure
 
@@ -152,10 +149,10 @@ if U > 0
    xu   = linspace(xmin,xmax,nati);
    yu   = linspace(ymin,ymax,nati);
    ru   = sqrt( (xu-xmin).^2 + (yu-ymin).^2 );
-  [hu,Tp,fm,B,Sk,kx,ky] = sea_surface(xu,yu,wind,'JS',spreading);
+   [hu,Tp,fm,B,Sk,kx,ky] = sea_surface(xu,yu,wind,'JS',spreading);
    hmin = min( hu(:) ); hmax = max( hu(:) ); wave_height = 0.5*( hmax - hmin );
    hu = hu - min(hu(:));
-  %Generate random final states: 
+   % Generate random final states: 
    final_statet = wave_height*randn( size(hu) )/5;
    final_statex = wave_height*randn( size(hu) )/5;
    final_statey = wave_height*randn( size(hu) )/5;
@@ -165,13 +162,15 @@ if U > 0
    subplot(212),mesh(kx,ky,Sk), xlabel('k_x (1/m)'),ylabel('k_y (1/m)')
    flag_flat = 0;
 else
-   nati = 2; Rs = 0;
+   nati = 2;
+   Rs = 0;
    flag_flat   = 1;
    flag_mosaic = 0;
    xu = [xmin  xmax];
    yu = [ymin  ymax]; 
    ru = [0 rangemax];
-   hu = [0        0]; kx = []; ky = []; Sk = []; 
+   hu = [0        0];
+   kx = []; ky = []; Sk = []; 
 end
 
 save Results_surface flag_flat wind xu yu hu kx ky Sk 
@@ -259,22 +258,22 @@ disp('End: last hydrophone positioned below the bottom...')
 return
 end
 %Test 5: ==============================================================
-if ( array_x(1) < xati(1) )|( array_x(1) > xati(nxati) )
+if ( array_x(1) < xati(1) )||( array_x(1) > xati(nxati) )
 disp('Array initial position along X is outside surface borders...')
 return
 end
 %Test 6: ==============================================================
-if ( array_x(2) < yati(1) )|( array_x(2) > yati(nyati) )
+if ( array_x(2) < yati(1) )||( array_x(2) > yati(nyati) )
 disp('Array initial position along Y is outside surface borders...')
 return
 end
 %Test 7: ==============================================================
-if ( last_array_x(1) < xati(1) )|( last_array_x(1) > xati(nxati) )
+if ( last_array_x(1) < xati(1) )||( last_array_x(1) > xati(nxati) )
 disp('Array final position along X is outside surface borders...')
 return
 end
 %Test 8: ==============================================================
-if ( last_array_x(2) < yati(1) )|( last_array_x(2) > yati(nyati) )
+if ( last_array_x(2) < yati(1) )||( last_array_x(2) > yati(nyati) )
 disp('Array final position along Y is outside surface borders...')
 return
 end
@@ -299,7 +298,7 @@ end
 %Time to plot:
 %======================================================================
 array_celerity = norm( array_v );
-nhyds = length( [first_hyd:delta_hyd:last_hyd] );
+nhyds = length(first_hyd:delta_hyd:last_hyd);
 if array_celerity > 0 
    for i = 1:10
        array_position = array_x + taux(i)*array_v;
@@ -325,10 +324,12 @@ clear taux
 %Is everything ready for calculations? then let's have a look 
 %at the initial positioning of the source and the array: 
 figure(4)
-plot(source_x(1),source_x(2),'ko','MarkerSize',16), hold on
-plot(source_x(1),source_x(2),'m*','MarkerSize',16)
-plot( array_x(1), array_x(2),'o','MarkerFaceColor','k')
-pcolor(xbty,ybty,-zbty), shading interp
+% 先绘制海底地形（作为背景）
+pcolor(xbty, ybty, -zbty), shading interp, hold on
+% 再绘制位置标记（作为前景）
+plot(source_x(1), source_x(2), 'ko', 'MarkerSize', 16)
+plot(source_x(1), source_x(2), 'm*', 'MarkerSize', 16)
+plot(array_x(1), array_x(2), 'o', 'MarkerFaceColor', 'k')
 xlabel('X (m)')
 ylabel('Y (m)')
 title('Source/Array initial positioning')
@@ -368,7 +369,7 @@ Scenario_info.source_aperture   = source_aperture;
 Scenario_info.source_ray_step   = source_ray_step; 
 Scenario_info.source_position   = source_position;
 Scenario_info.receiver_position = receiver_position;
-Scenario_info.hydrophones       = [first_hyd:delta_hyd:last_hyd]; 
+Scenario_info.hydrophones       = first_hyd:delta_hyd:last_hyd; 
 
 Scenario_info.tmax = tmax;
 Scenario_info.fs_x = fs_x; 

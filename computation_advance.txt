@@ -1,3 +1,12 @@
-iteration1, fs_time =10, ntimes =17, criterium =1.8889, size of H =119680 
-iteration2, fs_time =20, ntimes =16, criterium =6.8116e-34, size of H =232320 
+iteration1, fs_time =10, ntimes =17, criterium =1.0348, size of H =122400 
+iteration2, fs_time =20, ntimes =16, criterium =0.10164, size of H =237600 
+iteration3, fs_time =40, ntimes =32iteration1, fs_time =10, ntimes =17, criterium =1.0348, size of H =122400 
+iteration2, fs_time =20, ntimes =16iteration1, fs_time =10, ntimes =17, criterium =1.0348, size of H =122400 
+iteration2, fs_time =20, ntimes =16iteration1, fs_time =10, ntimes =17iteration1, fs_time =10, ntimes =17iteration1, fs_time =10, ntimes =17iteration1, fs_time =10, ntimes =17iteration1, fs_time =10, ntimes =17iteration1, fs_time =10, ntimes =17, criterium =1.0348, size of H =122400 
+iteration2, fs_time =20, ntimes =16, criterium =0.10164, size of H =237600 
+iteration3, fs_time =40, ntimes =32, criterium =0.036732, size of H =468000 
+evaluation of impulse responses completed 
+iteration1, fs_time =10, ntimes =17, criterium =1.0348, size of H =122400 
+iteration2, fs_time =20, ntimes =16, criterium =0.10164, size of H =237600 
+iteration3, fs_time =40, ntimes =32, criterium =0.036732, size of H =468000 
 evaluation of impulse responses completed 

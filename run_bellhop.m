@@ -1,19 +1,19 @@
-% get the current time index %
+% 当前时间索引 %
 indicetime = round(t(tt)*fs_x+1);
 
-% get source position %
+% 当前时间索引对应的声源位置 %
 source_x = source_position(1,indicetime);
 source_y = source_position(2,indicetime);
 source_z = source_position(3,indicetime);
 source_data.position = source_z;
 source_data.c = interp1(ssp_data.z,ssp_data.c,source_z);
 
-% get receiver position %
+% 当前时间索引对应的阵列位置 %
 receiver_x = receiver_position(1,indicetime);
 receiver_y = receiver_position(2,indicetime);
 receiver_z = hydrophones + receiver_position(3,indicetime);
 
-% define source-receiver range %
+% 声源到阵列的水平距离 %
 dx = receiver_x - source_x;
 dy = receiver_y - source_y;
 rangemax = sqrt( dx*dx + dy*dy );
@@ -31,11 +31,11 @@ end
 xtransect = linspace(source_x,receiver_x,np);
 ytransect = linspace(source_y,receiver_y,np);
 rtransect = sqrt( ( xtransect - source_x ).^2 + ( ytransect - source_y ).^2 );
-%figure(5)
-%mesh(xu,yu,hu), hold on
-%plot3(xtransect,ytransect,zeros(size(xtransect)))
-%plot3(xtransect,ytransect,zeros(size(xtransect)),'o')
-%hold off 
+% figure(5)
+% mesh(xu,yu,hu), hold on
+% plot3(xtransect,ytransect,zeros(size(xtransect)))
+% plot3(xtransect,ytransect,zeros(size(xtransect)),'o')
+% hold off 
 % get surface elevation along the transect %
 if flag_flat == 0
   if flag_mosaic == 0 % Temporal shift of sea surface:
@@ -65,7 +65,9 @@ end
 xbtyi = linspace(source_x,receiver_x,nbty);
 ybtyi = linspace(source_y,receiver_y,nbty);
 bathymetry(1,:) = linspace(0,1.1*rangemax,nbty);
-bathymetry(2,:) = interp2(xbty,ybty,zbty,xbtyi,ybtyi);figure(10),plot(bathymetry(1,:),bathymetry(2,:)), view(0,-90)
+bathymetry(2,:) = interp2(xbty,ybty,zbty,xbtyi,ybtyi);
+% % 绘制海底地形剖面图
+% figure(10),plot(bathymetry(1,:),bathymetry(2,:)), view(0,-90)
 bathymetry(1,:) = bathymetry(1,:)/1000;
 bottom_data.x   = bathymetry;
 
@@ -77,7 +79,7 @@ system('rm -rf scenario.arr')
 wbellhopenvfil('scenario',case_title,source_data,surface_data,ssp_data,bottom_data,options);
 system('bellhop.exe scenario')
 [amp,travel_time,theta0,thetaR,srefl,brefl,mnarr,rz] = read_arrivals_asc( 'scenario.arr', narr );
-if(narr<max(mnarr)),
+if(narr<max(mnarr))
     narr = max(mnarr);
     [amp,travel_time,theta0,thetaR,srefl,brefl,mnarr,rz] = read_arrivals_asc( 'scenario.arr', narr );
 end

@@ -66,5 +66,6 @@ bottom_data.aunits = '''W''' ; % Bottom absorption units: (dB/m)*kHZ
  options.options1    = '''SVWT*'''; 
  end 
  options.options2    = '''A*'''; 
+ % Bellhop *.env文件的RunType参数，代表计算信道脉冲响应
  options.options3    = '''A''';
  options.options4    = []; 

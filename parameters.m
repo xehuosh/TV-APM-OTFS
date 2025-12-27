@@ -2,7 +2,7 @@
 % source
 %======================================================================
 source_x = [1900 900 5]; % source initial position (x,y,z) (m)
-source_v = [0 0 0];   % source velocity (vx,vy,vz) (m/s)
+source_v = [0 0 1];   % source velocity (vx,vy,vz) (m/s)
 source_nrays =  2001;   % number of propagation rays considered
 source_aperture = 75;   % maximum launching angle (degrees)
 source_ray_step = 10;   % ray calculation step (meters), modified later 
@@ -25,7 +25,7 @@ bottom_properties  = [1465 1.5 0.06];
 % Array
 %======================================================================
 array_x = [2800 400 0]; % receivers array initial position (x,y,z) (m)
-array_v = [0 0 0];      % receiver array velocity (vx,vy,vz) (m/s)
+array_v = [0 0 -1];      % receiver array velocity (vx,vy,vz) (m/s)
 first_hyd = 30;         % depth of the first hydrophone  (m)
  last_hyd = 60;         % depth of the last hydrophone   (m)
 delta_hyd =  2;         % separation between hydrophones (m)
