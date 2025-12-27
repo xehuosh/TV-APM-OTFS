@@ -15,10 +15,13 @@ Bellhop水声工具箱功能强大，已经被广泛应用于各类水声原理�
 
 程序架构
 
-![本地路径](.\\README_Pictures\\1.png "相对路径演示,下一级目录")
+![图1](https://github.com/xehuosh/TV-APM-OTFS/blob/main/README_Pictures/1.png?raw=true)
+
+
 
 安装Bellhop
 
 
 
 初次运行
+
