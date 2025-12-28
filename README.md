@@ -1,7 +1,6 @@
-<center><big><b> 程序介绍 </b></big></center>
-<center><small> xehuosh </small></center>
-<center><small> 2025.12 </small></center>
-
+<div align="center">
+  # 程序介绍
+</div>
 &emsp;Hello，这是我的本科毕业设计的完整MATLAB程序，主要关于时变水声传播模型和OTFS水声信道估计与迭代均衡技术，该项目是为了水下移动网络节点间的水声通信与组网设计的。欢迎用户修复Bug、扩展功能，并在开源社区分享成果。
 
 
@@ -17,16 +16,20 @@
 
 
 
-程序架构
+<div align="center">
+  # 程序架构
+</div>
 
 ![图1](https://github.com/xehuosh/TV-APM-OTFS/blob/main/README_Pictures/1.png?raw=true)
 <center>图一：程序总体架构图</center>
 
 ![图2](https://github.com/xehuosh/TV-APM-OTFS/blob/main/README_Pictures/2.png?raw=true)
 <center>图二：TV-APM主要文件关系图</center>
-安装Bellhop
 
+<div align="center">
+  # 安装Bellhop
+</div>
 
-
-初次运行
-
+<div align="center">
+  # 初次运行
+</div>
