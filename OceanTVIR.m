@@ -1,3 +1,5 @@
+% 核心函数OceanTVIR
+
 function OceanTVIR(Scenario_info)
 
 %  
@@ -153,7 +155,7 @@ while((~scatterok)&&(iteration<4))
     h = h(indices,:,:);
     save('Results','h','-APPEND');
 
-    hsize = prod(size(h));
+    hsize = numel(h);    % 此前是"hsize = prod(size(h));",numel速度更快
 
     % check the scattering function %
     %===============================%
