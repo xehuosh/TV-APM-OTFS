@@ -74,14 +74,14 @@ bottom_data.x   = bathymetry;
 options.r = rangemax/1000; options.z = receiver_z;
 
 % write the data file and run Bellhop %
-system('rm -rf scenario.env')
-system('rm -rf scenario.arr')
+delete('scenario.env');
+delete('scenario.arr');
 wbellhopenvfil('scenario',case_title,source_data,surface_data,ssp_data,bottom_data,options);
-system('bellhop.exe scenario')
-[amp,travel_time,theta0,thetaR,srefl,brefl,mnarr,rz] = read_arrivals_asc( 'scenario.arr', narr );
+system('bellhop.exe scenario');
+[amp,travel_time,theta0,thetaR,srefl,brefl,mnarr,rz] = read_arrivals_asc('scenario.arr', narr);
 if(narr<max(mnarr))
     narr = max(mnarr);
-    [amp,travel_time,theta0,thetaR,srefl,brefl,mnarr,rz] = read_arrivals_asc( 'scenario.arr', narr );
+    [amp,travel_time,theta0,thetaR,srefl,brefl,mnarr,rz] = read_arrivals_asc('scenario.arr', narr);
 end
 % format the output data %
 travel_time = squeeze(travel_time); travel_time = travel_time';

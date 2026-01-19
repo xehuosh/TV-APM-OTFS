@@ -4,8 +4,9 @@
 % 
 % 时变水声传播模型
 %
-
-system('rm -f computation_advance.txt Results.mat');
+fclose all;
+delete('computation_advance.txt');
+delete('Results.mat');
 
 %======================================================================
 %     Define the Scenario
